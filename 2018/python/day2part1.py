@@ -1,5 +1,5 @@
 # Opens file and saves box IDs in a list
-file = open('input.txt')
+file = open("2018/inputs/day2.txt")
 idList = file.read().split()
 file.close()
 
@@ -12,15 +12,15 @@ for boxId in idList:
     threeLetters = False
     for letter in boxId:
         letterCount = boxId.count(letter)
-        if (letterCount == 2):
+        if letterCount == 2:
             twoLetters = True
-        if (letterCount == 3):
+        if letterCount == 3:
             threeLetters = True
     # Increments number of IDs with two and/or three letter repetitions if necessary
-    if (twoLetters):
+    if twoLetters:
         frequencies[2] += 1
-    if (threeLetters):
+    if threeLetters:
         frequencies[3] += 1
 
 # Prints the checksum
-print(frequencies[2]*frequencies[3])
+print(frequencies[2] * frequencies[3])

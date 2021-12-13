@@ -1,5 +1,5 @@
 import pytest
-from solutions.day3 import (
+from ..day3 import (
     closest_cross_to_center,
     calculate_points,
     distance,
@@ -20,7 +20,11 @@ def test_calculate_points(wire, expected_points):
 
 @pytest.mark.parametrize(
     "point_a, point_b, expected_distance",
-    [((2, 3), (0, 0), 5), ((-1, -1), (-1, 5), 6), ((-1, 2), (2, -3), 8),],
+    [
+        ((2, 3), (0, 0), 5),
+        ((-1, -1), (-1, 5), 6),
+        ((-1, 2), (2, -3), 8),
+    ],
 )
 def test_distance(point_a, point_b, expected_distance):
     assert distance(point_a, point_b) == expected_distance

@@ -36,7 +36,7 @@ def find_inputs_for(target):
 if __name__ == "__main__":
     ## Read file
     try:
-        with open("../inputs/day2_input.txt") as file:
+        with open("2019/inputs/day2_input.txt") as file:
             original_intcode = file.read()
     except FileNotFoundError:
         sys_exit(

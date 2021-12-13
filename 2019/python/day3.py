@@ -96,7 +96,7 @@ def fewest_combined_steps(wires, cross_points):
 if __name__ == "__main__":
     ## Read file
     try:
-        with open("../inputs/day3_input.txt") as file:
+        with open("2019/inputs/day3_input.txt") as file:
             wires = file.read()
     except FileNotFoundError:
         sys_exit(

@@ -11,13 +11,19 @@ def parse_pattern_and_password(pattern_and_password: str) -> Tuple:
 
 
 def is_valid_part_1(pattern_and_password: str) -> bool:
-    min_count, max_count, character, password = parse_pattern_and_password(pattern_and_password)
+    min_count, max_count, character, password = parse_pattern_and_password(
+        pattern_and_password
+    )
     return min_count <= password.count(character) <= max_count
 
 
 def is_valid_part_2(pattern_and_password: str) -> bool:
-    first_position, second_position, character, password = parse_pattern_and_password(pattern_and_password)
-    return (password[first_position - 1] == character) != (password[second_position - 1] == character)
+    first_position, second_position, character, password = parse_pattern_and_password(
+        pattern_and_password
+    )
+    return (password[first_position - 1] == character) != (
+        password[second_position - 1] == character
+    )
 
 
 def count_valid_passwords(passwords: List[str], algorithm: int = 1) -> int:
@@ -33,7 +39,9 @@ def count_valid_passwords(passwords: List[str], algorithm: int = 1) -> int:
 
 
 if __name__ == "__main__":
-    file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "inputs", "day2.txt")
+    file_path = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "..", "inputs", "day2.txt"
+    )
 
     with open(file_path) as f:
         passwords = f.read()
@@ -42,9 +50,13 @@ if __name__ == "__main__":
     print(" Part 1 ".center(30, "-"))
     passwords = passwords.strip().split("\n")
     valid_passwords_count = count_valid_passwords(passwords, 1)
-    print(f"There are a total of {valid_passwords_count} valid passwords using the firt algorithm.")
+    print(
+        f"There are a total of {valid_passwords_count} valid passwords using the firt algorithm."
+    )
 
     # Part 2
     print(" Part 2 ".center(30, "-"))
     valid_passwords_count = count_valid_passwords(passwords, 2)
-    print(f"There are a total of {valid_passwords_count} valid passwords using the second algorithm.")
+    print(
+        f"There are a total of {valid_passwords_count} valid passwords using the second algorithm."
+    )

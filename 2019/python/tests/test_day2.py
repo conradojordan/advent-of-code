@@ -1,5 +1,5 @@
 import pytest
-from solutions.day2 import run_intcode, listify
+from ..day2 import run_intcode, listify
 
 
 @pytest.mark.parametrize(

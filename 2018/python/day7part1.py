@@ -1,13 +1,14 @@
 import time, re
 from collections import defaultdict
+
 startTime = time.time()
 
 # Opens file and reads steps and its pre-requisites
-file = open('input.txt')
-lines = file.read().strip().split('\n')
+file = open("2018/inputs/day7.txt")
+lines = file.read().strip().split("\n")
 file.close()
 
-stepsRegex = re.compile(r'Step (.) must be finished before step (.) can begin.')
+stepsRegex = re.compile(r"Step (.) must be finished before step (.) can begin.")
 stepsReq = defaultdict(set)
 allSteps = set()
 stepsInOrder = []
@@ -37,12 +38,12 @@ while len(allSteps) > 0:
             del stepsReq[removed]
     allSteps.discard(nextStep)
 
-finalSequence = ''
+finalSequence = ""
 for s in stepsInOrder:
     finalSequence += s
-    
+
 ## PART 1
-print('\n-----Part 1-----')
+print("\n-----Part 1-----")
 print(finalSequence)
 
-print('Program execution time: ' + str(round(time.time() - startTime, 3)) + ' seconds')
+print("Program execution time: " + str(round(time.time() - startTime, 3)) + " seconds")

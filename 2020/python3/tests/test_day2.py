@@ -1,4 +1,9 @@
-from solutions.day2 import is_valid_part_1, is_valid_part_2, parse_pattern_and_password, count_valid_passwords
+from ..day2 import (
+    is_valid_part_1,
+    is_valid_part_2,
+    parse_pattern_and_password,
+    count_valid_passwords,
+)
 
 
 def test_is_valid_part_1():
@@ -19,5 +24,11 @@ def test_parse_pattern_and_password():
 
 
 def test_count_valid_passwords_part1_and_2():
-    assert count_valid_passwords(["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"], 1) == 2
-    assert count_valid_passwords(["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"], 2) == 1
+    assert (
+        count_valid_passwords(["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"], 1)
+        == 2
+    )
+    assert (
+        count_valid_passwords(["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"], 2)
+        == 1
+    )

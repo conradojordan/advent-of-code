@@ -138,7 +138,7 @@ def run_intcode_part2(intcode):
 if __name__ == "__main__":
     ## Read file
     try:
-        with open("../inputs/day5_input.txt") as file:
+        with open("2019/inputs/day5_input.txt") as file:
             intcode_original = file.read()
     except FileNotFoundError:
         sys_exit(

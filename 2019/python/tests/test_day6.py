@@ -1,5 +1,4 @@
-import pytest
-from solutions.day6 import count_orbits
+from ..day6 import count_orbits
 
 
 def test_count_orbits():

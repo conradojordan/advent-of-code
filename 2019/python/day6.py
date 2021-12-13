@@ -47,7 +47,7 @@ def distance_you_san(orbits_map):
 if __name__ == "__main__":
     ## Read file
     try:
-        with open("../inputs/day6_input.txt") as file:
+        with open("2019/inputs/day6_input.txt") as file:
             orbits_map = file.read()
     except FileNotFoundError:
         sys_exit(

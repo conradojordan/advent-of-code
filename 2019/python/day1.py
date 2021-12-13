@@ -20,7 +20,7 @@ def calculate_fuel_recursive(module_weight):
 if __name__ == "__main__":
     ## Read file
     try:
-        with open("../inputs/day1_input.txt") as file:
+        with open("2019/inputs/day1_input.txt") as file:
             lines = list(file)
     except FileNotFoundError:
         sys_exit(
@@ -38,4 +38,3 @@ if __name__ == "__main__":
     for line in lines:
         total_recursive_fuel += calculate_fuel_recursive(int(line))
     print(total_recursive_fuel)
-

@@ -1,5 +1,5 @@
 import pytest
-from solutions.day1 import calculate_fuel, calculate_fuel_recursive
+from ..day1 import calculate_fuel, calculate_fuel_recursive
 
 
 @pytest.mark.parametrize(
@@ -14,4 +14,3 @@ def test_calculate_fuel(input, expected_fuel):
 )
 def test_calculate_fuel_recursive(input, expected_fuel):
     assert calculate_fuel_recursive(input) == expected_fuel
-
