@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const FilePath = "2021/go/day1/input.txt"
+const FilePath = "2021/inputs/day1.txt"
 
 func check(e error) {
 	if e != nil {
