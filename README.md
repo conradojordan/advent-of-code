@@ -12,4 +12,4 @@ To run the tests, simply run `pytest` in the root directory (requires the Pytest
 
 ## Run
 
-To run any single solution, execute it from the root directory. For example: `python3 2021/python/day1.py`
+To run any single solution, execute it from the root directory. For example: `python3 2021/python/day1.py` or `go run 2021/go/day1.go`
