@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 const FilePath = "2022/inputs/day3"
@@ -17,6 +18,21 @@ func checkError(e error) {
 func getCommonElement(string1, string2 string) string {
 	for _, c := range string1 {
 		if strings.Contains(string2, string(c)) {
+			return string(c)
+		}
+	}
+	return ""
+}
+
+func getCommonElementPart2(string1, string2, string3 string) string {
+	firstCommonElements := make([]string, 0, 20)
+	for _, c := range string1 {
+		if strings.Contains(string2, string(c)) {
+			firstCommonElements = append(firstCommonElements, string(c))
+		}
+	}
+	for _, c := range firstCommonElements {
+		if strings.Contains(string3, string(c)) {
 			return string(c)
 		}
 	}
@@ -42,19 +58,31 @@ func generatePointsMap() map[string]int {
 func main() {
 	data, err := os.ReadFile(FilePath)
 	checkError(err)
+	startTime := time.Now()
 
 	stringData := string(data)
 	splittedData := strings.Split(stringData, "\n")
+	rucksacks := splittedData[:len(splittedData)-1] // Remove ending blank line
 	pointsMap := generatePointsMap()
 
 	var totalPoints int
 	var commonElement string
 
-	for _, rucksack := range splittedData {
+	for _, rucksack := range rucksacks {
 		commonElement = getCommonElement(splitInHalf(rucksack))
 		totalPoints += pointsMap[commonElement]
 	}
 
+	var totalPointsPart2 int
+	for i := 0; i < (len(rucksacks) / 3); i++ {
+		commonElement = getCommonElementPart2(rucksacks[i*3], rucksacks[i*3+1], rucksacks[i*3+2])
+		totalPointsPart2 += pointsMap[commonElement]
+	}
+
+	endTime := time.Now()
 	fmt.Printf("%sPart 1%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
 	fmt.Println("Total score:", totalPoints)
+	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
+	fmt.Println("Total score:", totalPointsPart2)
+	fmt.Printf("\nTotal time elapsed: %v\n", endTime.Sub(startTime))
 }
