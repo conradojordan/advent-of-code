@@ -35,8 +35,12 @@ func splitElfs(elfPair string) ([2]int, [2]int) {
 	return elf1, elf2
 }
 
-func hasElfSubset(elf1, elf2 [2]int) bool {
+func hasSubset(elf1, elf2 [2]int) bool {
 	return !((elf1[0] < elf2[0] && elf1[1] < elf2[1]) || (elf1[0] > elf2[0] && elf1[1] > elf2[1]))
+}
+
+func hasOverlap(elf1, elf2 [2]int) bool {
+	return !(elf1[1] < elf2[0] || elf1[0] > elf2[1])
 }
 
 func main() {
@@ -49,17 +53,21 @@ func main() {
 	elfPairs := splittedData[:len(splittedData)-1] // Remove ending blank line
 
 	var subsetCount int
+	var overlapCount int
 	for _, elfPair := range elfPairs {
 		elf1, elf2 := splitElfs(elfPair)
-		if hasElfSubset(elf1, elf2) {
+		if hasSubset(elf1, elf2) {
 			subsetCount++
+		}
+		if hasOverlap(elf1, elf2) {
+			overlapCount++
 		}
 	}
 
 	endTime := time.Now()
 	fmt.Printf("%sPart 1%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	fmt.Println("Total score:", subsetCount)
+	fmt.Println("Total number of subsets:", subsetCount)
 	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	// fmt.Println("Total score:", totalPointsPart2)
+	fmt.Println("Total number of overlaps:", overlapCount)
 	fmt.Printf("\nTotal time elapsed: %v\n", endTime.Sub(startTime))
 }
