@@ -45,9 +45,8 @@ func main() {
 	data, err := os.ReadFile(FilePath)
 	checkError(err)
 
-	stringData := string(data)
+	stringData := strings.TrimSpace(string(data))
 	var plays []string = strings.Split(stringData, "\n")
-	plays = plays[:len(plays)-1] // Remove last blank line
 
 	var totalScorePart1, totalScorePart2 int
 

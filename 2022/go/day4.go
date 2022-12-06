@@ -48,9 +48,8 @@ func main() {
 	checkError(err)
 	startTime := time.Now()
 
-	stringData := string(data)
-	splittedData := strings.Split(stringData, "\n")
-	elfPairs := splittedData[:len(splittedData)-1] // Remove ending blank line
+	stringData := strings.TrimSpace(string(data))
+	elfPairs := strings.Split(stringData, "\n")
 
 	var subsetCount int
 	var overlapCount int

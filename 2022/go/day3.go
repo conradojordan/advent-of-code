@@ -60,9 +60,8 @@ func main() {
 	checkError(err)
 	startTime := time.Now()
 
-	stringData := string(data)
-	splittedData := strings.Split(stringData, "\n")
-	rucksacks := splittedData[:len(splittedData)-1] // Remove ending blank line
+	stringData := strings.TrimSpace(string(data))
+	rucksacks := strings.Split(stringData, "\n")
 	pointsMap := generatePointsMap()
 
 	var totalPoints int
