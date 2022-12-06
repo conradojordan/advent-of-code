@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const FilePath = "2022/inputs/day1"
@@ -48,6 +49,7 @@ func insertIntoTop3(top3 [3]int, newValue int) [3]int {
 func main() {
 	data, err := os.ReadFile(FilePath)
 	checkError(err)
+	startTime := time.Now()
 
 	stringData := string(data)
 	splittedData := strings.Split(stringData, "\n\n")
@@ -65,5 +67,5 @@ func main() {
 	fmt.Printf("Elf with the highest amount of calories has: %v calories\n", top3calories[2])
 	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
 	fmt.Printf("Sum of the top 3 calories: %d\n", top3calories[0]+top3calories[1]+top3calories[2])
-
+	fmt.Printf("\nTotal time elapsed: %v\n", time.Since(startTime))
 }

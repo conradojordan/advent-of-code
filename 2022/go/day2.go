@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 const FilePath = "2022/inputs/day2"
@@ -41,9 +42,9 @@ var scoresPart2 map[string]int = map[string]int{
 }
 
 func main() {
-
 	data, err := os.ReadFile(FilePath)
 	checkError(err)
+	startTime := time.Now()
 
 	stringData := strings.TrimSpace(string(data))
 	var plays []string = strings.Split(stringData, "\n")
@@ -59,5 +60,5 @@ func main() {
 	fmt.Println("Total score:", totalScorePart1)
 	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
 	fmt.Println("Total score:", totalScorePart2)
-
+	fmt.Printf("\nTotal time elapsed: %v\n", time.Since(startTime))
 }

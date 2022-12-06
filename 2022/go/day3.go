@@ -78,10 +78,9 @@ func main() {
 		totalPointsPart2 += pointsMap[commonElement]
 	}
 
-	endTime := time.Now()
 	fmt.Printf("%sPart 1%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
 	fmt.Println("Total score:", totalPoints)
 	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
 	fmt.Println("Total score:", totalPointsPart2)
-	fmt.Printf("\nTotal time elapsed: %v\n", endTime.Sub(startTime))
+	fmt.Printf("\nTotal time elapsed: %v\n", time.Since(startTime))
 }
