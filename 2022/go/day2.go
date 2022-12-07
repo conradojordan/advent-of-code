@@ -46,7 +46,7 @@ func main() {
 	checkError(err)
 	startTime := time.Now()
 
-	stringData := strings.TrimSpace(string(data))
+	stringData := strings.TrimRight(string(data), "\n")
 	var plays []string = strings.Split(stringData, "\n")
 
 	var totalScorePart1, totalScorePart2 int

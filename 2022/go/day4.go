@@ -48,7 +48,7 @@ func main() {
 	checkError(err)
 	startTime := time.Now()
 
-	stringData := strings.TrimSpace(string(data))
+	stringData := strings.TrimRight(string(data), "\n")
 	elfPairs := strings.Split(stringData, "\n")
 
 	var subsetCount int

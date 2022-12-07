@@ -60,7 +60,7 @@ func main() {
 	checkError(err)
 	startTime := time.Now()
 
-	stringData := strings.TrimSpace(string(data))
+	stringData := strings.TrimRight(string(data), "\n")
 	rucksacks := strings.Split(stringData, "\n")
 	pointsMap := generatePointsMap()
 
