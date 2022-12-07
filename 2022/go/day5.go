@@ -28,6 +28,17 @@ func (cs *crateStack) pop() string {
 	return element
 }
 
+func (cs *crateStack) pushMultiple(elements []string) {
+	*cs = append(*cs, elements...)
+}
+
+func (cs *crateStack) popMultiple(numElements int) []string {
+	stackLen := len(*cs)
+	elements := (*cs)[stackLen-numElements:]
+	*cs = (*cs)[:stackLen-numElements]
+	return elements
+}
+
 type elfCrates [9]crateStack
 
 func (ec *elfCrates) makeMove(move string) {
@@ -38,6 +49,13 @@ func (ec *elfCrates) makeMove(move string) {
 		crate = ec[source-1].pop()
 		ec[destiny-1].push(crate)
 	}
+}
+
+func (ec *elfCrates) makeMovePart2(move string) {
+	numCrates, source, destiny := parseMove(move)
+
+	crates := ec[source-1].popMultiple(numCrates)
+	ec[destiny-1].pushMultiple(crates)
 }
 
 func (ec elfCrates) printCrates() {
@@ -113,6 +131,7 @@ func main() {
 	cratesAndMoves := strings.Split(stringData, "\n\n")
 
 	crates := parseCrates(cratesAndMoves[0])
+	cratesPart2 := parseCrates(cratesAndMoves[0])
 	moves := strings.Split(cratesAndMoves[1], "\n")
 
 	fmt.Println("Initial crates arrangement:")
@@ -120,14 +139,18 @@ func main() {
 
 	for _, move := range moves {
 		crates.makeMove(move)
+		cratesPart2.makeMovePart2(move)
 	}
 
-	fmt.Println("\nFinal crates arrangement:")
+	fmt.Println("\nFinal crates arrangement (part 1):")
 	crates.printCrates()
+
+	fmt.Println("\nFinal crates arrangement (part 2):")
+	cratesPart2.printCrates()
 
 	fmt.Printf("%sPart 1%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
 	fmt.Println("Arrangement of crates after moves:", crates.answer())
 	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	// fmt.Println("Total number of overlaps:", overlapCount)
+	fmt.Println("Arrangement of crates after moves:", cratesPart2.answer())
 	fmt.Printf("\nTotal time elapsed: %v\n", time.Since(startTime))
 }
