@@ -15,32 +15,56 @@ func checkError(e error) {
 	}
 }
 
+type byteSet map[byte]int
+
+func (bs *byteSet) add(element byte) {
+	(*bs)[element]++
+}
+
+func (bs *byteSet) remove(element byte) {
+	(*bs)[element]--
+	if (*bs)[element] == 0 {
+		delete(*bs, element)
+	}
+}
+
+func firstIndexOfNDifferentCharacters(datastream string, n int) int {
+	bs := byteSet{}
+
+	for i := 0; i < n; i++ {
+		bs.add(datastream[i])
+	}
+
+	if len(bs) == n {
+		return n
+	}
+
+	for i := n; i < len(datastream); i++ {
+		bs.remove(datastream[i-n])
+		bs.add(datastream[i])
+		if len(bs) == n {
+			return i + 1
+		}
+	}
+	return 0
+
+}
+
 func main() {
 	data, err := os.ReadFile(FilePath)
 	checkError(err)
 	startTime := time.Now()
 	datastream := strings.TrimRight(string(data), "\n")
 
-	var answer int
-	var c01, c02, c03, c12, c13, c23 bool
-	c12 = datastream[0] != datastream[1]
-	c13 = datastream[0] != datastream[2]
-	c23 = datastream[1] != datastream[2]
+	var answerPart1, answerPart2 int
 
-	for i := 3; i < len(datastream); i++ {
-		c01, c02, c12 = c12, c13, c23
-		c03 = datastream[i-3] != datastream[i]
-		c13 = datastream[i-2] != datastream[i]
-		c23 = datastream[i-1] != datastream[i]
-		if c01 && c02 && c03 && c12 && c13 && c23 {
-			answer = i + 1
-			break
-		}
-	}
+	answerPart1 = firstIndexOfNDifferentCharacters(datastream, 4)
+	answerPart2 = firstIndexOfNDifferentCharacters(datastream, 14)
 
 	fmt.Printf("%sPart 1%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	fmt.Println("Index of end of first 4 different characters is:", answer)
-	// fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	// fmt.Println("Arrangement of crates after moves:", cratesPart2.answer())
+	fmt.Println("Index of end of first 4 different characters is:", answerPart1)
+	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
+	fmt.Println("Index of end of first 4 different characters is:", answerPart2)
+
 	fmt.Printf("\nTotal time elapsed: %v\n", time.Since(startTime))
 }
