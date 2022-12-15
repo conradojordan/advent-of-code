@@ -56,15 +56,15 @@ func main() {
 	startTime := time.Now()
 	datastream := strings.TrimRight(string(data), "\n")
 
-	var answerPart1, answerPart2 int
+	var part1answer, part2answer int
 
-	answerPart1 = firstIndexOfNDifferentCharacters(datastream, 4)
-	answerPart2 = firstIndexOfNDifferentCharacters(datastream, 14)
+	part1answer = firstIndexOfNDifferentCharacters(datastream, 4)
+	part2answer = firstIndexOfNDifferentCharacters(datastream, 14)
 
 	fmt.Printf("%sPart 1%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	fmt.Println("Index of end of first 4 different characters is:", answerPart1)
+	fmt.Println("Index of end of first 4 different characters is:", part1answer)
 	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	fmt.Println("Index of end of first 4 different characters is:", answerPart2)
+	fmt.Println("Index of end of first 4 different characters is:", part2answer)
 
 	fmt.Printf("\nTotal time elapsed: %v\n", time.Since(startTime))
 }
