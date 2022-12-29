@@ -35,9 +35,9 @@ func main() {
 
 	for ip < len(instructions) {
 		if regX-1 <= ((cycle-1)%40) && regX+1 >= ((cycle-1)%40) {
-			fmt.Print("#")
+			fmt.Print("██")
 		} else {
-			fmt.Print(".")
+			fmt.Print("░░")
 		}
 		if cycle%40 == 0 {
 			fmt.Print("\n")
