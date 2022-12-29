@@ -34,11 +34,14 @@ func (m *Monkey) addItem(item int) {
 	m.items = append(m.items, item)
 }
 
-func (m *Monkey) processItem() (int, int) {
+func (m *Monkey) processItem(factor int, reducer int) (int, int) {
 	monkeyIndex := m.ifFalse
 	currentItem := m.items[0]
 	currentItem = m.newWorryLevelFunction(currentItem)
-	currentItem = currentItem / 3
+	currentItem = currentItem / factor
+	if reducer != 0 {
+		currentItem = currentItem % reducer
+	}
 	if currentItem%m.divisibleBy == 0 {
 		monkeyIndex = m.ifTrue
 	}
@@ -128,12 +131,12 @@ func parseMonkey(monkeyDataString string) Monkey {
 	return Monkey{id: id, items: items, newWorryLevelFunction: newWorryLevelFunction, divisibleBy: divisibleBy, ifTrue: ifTrue, ifFalse: ifFalse}
 }
 
-func processMonkeys(monkeys []Monkey) []Monkey {
+func processMonkeys(monkeys []Monkey, rounds int, factor int, reducer int) []Monkey {
 	var index, currentItem int
-	for round := 0; round < 20; round++ {
+	for round := 0; round < rounds; round++ {
 		for i := 0; i < len(monkeys); i++ {
 			for monkeys[i].hasItems() {
-				index, currentItem = monkeys[i].processItem()
+				index, currentItem = monkeys[i].processItem(factor, reducer)
 
 				monkeys[index].addItem(currentItem)
 			}
@@ -155,20 +158,32 @@ func main() {
 	for _, monkeyData := range monkeysData {
 		monkeys = append(monkeys, parseMonkey(monkeyData))
 	}
+	monkeysPart2 := make([]Monkey, len(monkeys))
+	copy(monkeysPart2, monkeys)
 
 	// Monkeys processing
-	monkeys = processMonkeys(monkeys)
+	monkeys = processMonkeys(monkeys, 20, 3, 0)
+
+	reducer := 1
+	for _, monkey := range monkeys {
+		reducer *= monkey.divisibleBy
+	}
+	monkeysPart2 = processMonkeys(monkeysPart2, 10000, 1, reducer)
 
 	// Monkeys sorting
 	sort.Slice(monkeys, func(i, j int) bool {
 		return monkeys[i].inspectedItems < monkeys[j].inspectedItems
 	})
+	sort.Slice(monkeysPart2, func(i, j int) bool {
+		return monkeysPart2[i].inspectedItems < monkeysPart2[j].inspectedItems
+	})
 
 	part1answer := monkeys[len(monkeys)-1].inspectedItems * monkeys[len(monkeys)-2].inspectedItems
+	part2answer := monkeysPart2[len(monkeysPart2)-1].inspectedItems * monkeysPart2[len(monkeysPart2)-2].inspectedItems
 	fmt.Printf("%sPart 1%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
 	fmt.Println("Answer to part 1 is:", part1answer)
 	fmt.Printf("%sPart 2%s\n", strings.Repeat("-", 10), strings.Repeat("-", 10))
-	fmt.Println("Answer to part 2 is:")
+	fmt.Println("Answer to part 2 is:", part2answer)
 
 	fmt.Printf("\nTotal time elapsed: %v\n", time.Since(startTime))
 }
