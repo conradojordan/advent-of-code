@@ -1,87 +1,72 @@
 use std::fs;
 
 fn first_and_last_digit(line: &str) -> u32 {
-    let mut digits: [char; 2] = ['a'; 2];
-    let mut first = true;
+    let digits: Vec<u32> = line.chars().filter_map(|c| c.to_digit(10)).collect();
 
-    for c in line.chars() {
-        if c.is_digit(10) {
-            if first {
-                digits[0] = c;
-                first = false;
-            } else {
-                digits[1] = c;
-            }
-        }
-    }
-    if digits[1] == 'a' {
-        digits[1] = digits[0];
-    }
-
-    format!("{}{}", digits[0], digits[1]).parse().unwrap()
+    return digits.first().unwrap() * 10 + digits.last().unwrap();
 }
 
 fn first_and_last_digit_part_two(line: &str) -> u32 {
-    let mut parsed_digits: Vec<char> = Vec::new();
+    let mut digits: Vec<u32> = Vec::new();
     let line_length: usize = line.len();
 
     for (index, ch) in line.char_indices() {
         match ch {
             '0'..='9' => {
-                parsed_digits.push(ch);
+                digits.push(ch.to_digit(10).unwrap());
             }
             'e' => {
                 if line_length - index >= 5 {
                     if &line[index..index + 5] == "eight" {
-                        parsed_digits.push('8')
+                        digits.push(8)
                     }
                 }
             }
             'f' => {
                 if line_length - index >= 4 {
                     if &line[index..index + 4] == "five" {
-                        parsed_digits.push('5')
+                        digits.push(5)
                     }
                     if &line[index..index + 4] == "four" {
-                        parsed_digits.push('4')
+                        digits.push(4)
                     }
                 }
             }
             'n' => {
                 if line_length - index >= 4 {
                     if &line[index..index + 4] == "nine" {
-                        parsed_digits.push('9')
+                        digits.push(9)
                     }
                 }
             }
             'o' => {
                 if line_length - index >= 3 {
                     if &line[index..index + 3] == "one" {
-                        parsed_digits.push('1')
+                        digits.push(1)
                     }
                 }
             }
             's' => {
                 if line_length - index >= 3 {
                     if &line[index..index + 3] == "six" {
-                        parsed_digits.push('6')
+                        digits.push(6)
                     }
                 }
                 if line_length - index >= 5 {
                     if &line[index..index + 5] == "seven" {
-                        parsed_digits.push('7')
+                        digits.push(7)
                     }
                 }
             }
             't' => {
                 if line_length - index >= 3 {
                     if &line[index..index + 3] == "two" {
-                        parsed_digits.push('2')
+                        digits.push(2)
                     }
                 }
                 if line_length - index >= 5 {
                     if &line[index..index + 5] == "three" {
-                        parsed_digits.push('3')
+                        digits.push(3)
                     }
                 }
             }
@@ -89,13 +74,7 @@ fn first_and_last_digit_part_two(line: &str) -> u32 {
         }
     }
 
-    format!(
-        "{}{}",
-        parsed_digits[0],
-        parsed_digits[parsed_digits.len() - 1]
-    )
-    .parse()
-    .unwrap()
+    return digits.first().unwrap() * 10 + digits.last().unwrap();
 }
 
 fn main() {
@@ -104,16 +83,13 @@ fn main() {
     let file_content = fs::read_to_string(input_path).unwrap();
     let input = file_content.trim_end();
 
-    let mut result: u32 = 0;
-    for line in input.split("\n") {
-        result += first_and_last_digit(line);
-    }
+    let result: u32 = input.lines().map(|line| first_and_last_digit(line)).sum();
     println!("Result of part 1 is {}", result);
 
-    let mut result: u32 = 0;
-    for line in input.split("\n") {
-        result += first_and_last_digit_part_two(line);
-    }
+    let result: u32 = input
+        .lines()
+        .map(|line| first_and_last_digit_part_two(line))
+        .sum();
     println!("Result of part 2 is {}", result);
 }
 
