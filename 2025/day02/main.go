@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 
 	"github.com/conradojordan/advent-of-code/utils"
 )
 
-const FilePath = "./2025/day01/input.txt"
+const FilePath = "./2025/day02/example.txt"
 
 func checkError(err error) {
 	if err != nil {
@@ -70,12 +71,23 @@ func part2(data []string) int {
 }
 
 func main() {
-	data, err := utils.ParseInput(FilePath, "\n")
+	data, err := utils.ParseInput(FilePath, ",")
 	checkError(err)
 
-	fmt.Println("---------- Part 1 ----------")
-	fmt.Println("Number of times dial pointed at 0:", part1(data))
-	fmt.Println("---------- Part 2 ----------")
-	fmt.Println("Number of times dial passed through 0:", part2(data))
+	var rangesLens = make([][2]int, 0, 100)
+
+	for _, val := range data {
+		range_str := strings.Split(val, "-")
+		range_low := len(range_str[0])
+		range_high := len(range_str[1])
+		curr_range := [2]int{range_low, range_high}
+		rangesLens = append(rangesLens, curr_range)
+	}
+
+	fmt.Printf("%#v\n", rangesLens)
+	// fmt.Println("---------- Part 1 ----------")
+	// fmt.Println("Number of times dial pointed at 0:", part1(data))
+	// fmt.Println("---------- Part 2 ----------")
+	// fmt.Println("Number of times dial passed through 0:", part2(data))
 
 }

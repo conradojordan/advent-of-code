@@ -5,16 +5,13 @@ import (
 	"strings"
 )
 
-func ParseInput(path string) ([]string, error) {
+func ParseInput(path string, delimiter string) ([]string, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
-	stringData := string(data)
+	stringData := strings.TrimRight(string(data), "\n")
 
-	sliceData := strings.Split(stringData, "\n")
-	if sliceData[len(sliceData)-1] == "" {
-		sliceData = sliceData[:len(sliceData)-1]
-	}
+	sliceData := strings.Split(stringData, delimiter)
 	return sliceData, nil
 }
