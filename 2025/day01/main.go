@@ -43,36 +43,27 @@ func part2(data []string) int {
 	dial := 50
 
 	for _, rot := range data {
-		old_dial := dial
-
 		rot_amount, err := strconv.Atoi(rot[1:])
 		checkError(err)
 
+		// Count and reduce full revolutions
 		count += (rot_amount / 100)
 		rot_amount = rot_amount % 100
 
 		if rot[0] == 'L' {
-			dial -= rot_amount
-			if dial < 0 && old_dial != 0 {
+			if rot_amount >= dial && dial != 0 {
 				count++
+			}
+			dial -= rot_amount
+			if dial < 0 {
+				dial += 100
 			}
 		} else {
 			dial += rot_amount
-			if dial > 100 && old_dial != 0 {
+			if dial >= 100 {
+				dial -= 100
 				count++
 			}
-		}
-
-		if dial < 0 {
-			dial += 100
-		}
-
-		if dial >= 100 {
-			dial -= 100
-		}
-
-		if dial == 0 {
-			count++
 		}
 	}
 	return count
